@@ -5,6 +5,7 @@ describe 'タスク管理機能', type: :system do
   let(:user_a) { FactoryBot.create(:user, name: 'ユーザA', email: 'a@example.com') }
   let(:user_b) { FactoryBot.create(:user, name: 'ユーザB', email: 'b@example.com') }
   let!(:task_a) { FactoryBot.create(:task, name: '最初のタスク', user: user_a) }
+  let!(:task_b) { FactoryBot.create(:task, name: '次のタスク', user: user_a) }
 
   before do
     visit login_path
@@ -30,6 +31,24 @@ describe 'タスク管理機能', type: :system do
       it 'ユーザAが作成したタスクが表示されない' do
         expect(page).not_to have_content '最初のタスク'
       end
+    end
+
+    describe '絞り込み検索' do
+      let(:login_user) { user_a }
+
+      before do
+        fill_in '名前', with: '最初'
+        click_button '検索'
+      end
+
+      it '最初のタスクが表示されること' do
+        expect(page).to have_content '最初のタスク'
+      end
+
+      it '次タスクが表示されないこと' do
+        expect(page).not_to have_content '次のタスク'
+      end
+
     end
   end
 
