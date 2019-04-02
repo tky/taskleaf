@@ -43,6 +43,32 @@ describe 'タスク管理機能', type: :system do
 
       it_behaves_like 'ユーザAが作成したタスクが評される'
     end
+  end
 
+  describe '新規作成' do
+    let(:login_user) { user_a }
+
+    before do
+      visit new_task_path
+      fill_in '名前', with: task_name
+      click_button '登録する'
+    end
+
+    context '新規作成画面で名称を入力' do
+      let(:task_name) { '新規テスト作成' }
+      it '正常に登録される' do
+        expect(page).to have_selector '.alert-success', text: '新規テスト作成'
+      end
+    end
+
+    context '名称を入力しなかった場合' do
+      let(:task_name) { '' }
+
+      it ' エラー' do
+        within '#error_explanation' do
+          expect(page).to have_content '名前を入力してください'
+        end
+      end
+    end
   end
 end
