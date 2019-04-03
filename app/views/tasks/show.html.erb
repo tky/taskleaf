@@ -27,6 +27,10 @@
         <th><%= Task.human_attribute_name(:updated_at) %></th>
         <td><%= @task.updated_at %></td>
       </tr>
+      <tr>
+        <th><%= Task.human_attribute_name(:image) %></th>
+        <td><%= image_tag @task.image if @task.image.attached? %></td>
+      </tr>
     </tr>
   </tbody>
 </table>
