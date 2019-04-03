@@ -7,6 +7,18 @@ bin/rails db:migrate
 
 User.create(name: 'admin', email: 'admin@example.com', password: 'password', password_confirmation: 'password')
 
+mailer
+
+```
+gem install mailcatcher
+```
+
+```
+$ mailcatcher
+```
+
+see http://127.0.0.1:1080/
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
