@@ -8,6 +8,8 @@ class Task < ApplicationRecord
 
   scope :recent, -> { order(created_at: :desc) }
 
+  paginates_per 5
+
   def self.csv_attributes
     %w(name description created_at updated_at)
   end
